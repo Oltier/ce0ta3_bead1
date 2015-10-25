@@ -1,0 +1,105 @@
+{
+  "data": {
+    "todo": [],
+    "member": [],
+    "member_todos__todo_assigner": []
+  },
+  "schema": {
+    "todo": {
+      "date": {
+        "type": "datetime"
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "done",
+          "overdue"
+        ]
+      },
+      "description": {
+        "type": "string"
+      },
+      "dueDate": {
+        "type": "string"
+      },
+      "assigner": {
+        "type": "string"
+      },
+      "id": {
+        "type": "integer",
+        "autoIncrement": true,
+        "primaryKey": true,
+        "unique": true
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    },
+    "member": {
+      "nickname": {
+        "type": "string",
+        "unique": true
+      },
+      "password": {
+        "type": "string"
+      },
+      "surname": {
+        "type": "string"
+      },
+      "forename": {
+        "type": "string"
+      },
+      "role": {
+        "type": "string",
+        "enum": [
+          "parent",
+          "child"
+        ],
+        "defaultsTo": "child"
+      },
+      "id": {
+        "type": "integer",
+        "autoIncrement": true,
+        "primaryKey": true,
+        "unique": true
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    },
+    "member_todos__todo_assigner": {
+      "id": {
+        "primaryKey": true,
+        "unique": true,
+        "autoIncrement": true,
+        "type": "integer"
+      },
+      "member_todos": {
+        "type": "integer",
+        "foreignKey": true,
+        "references": "member",
+        "on": "id",
+        "via": "todo_assigner"
+      },
+      "todo_assigner": {
+        "type": "integer",
+        "foreignKey": true,
+        "references": "todo",
+        "on": "id",
+        "via": "member_todos"
+      }
+    }
+  },
+  "counters": {
+    "todo": {},
+    "member": {},
+    "member_todos__todo_assigner": {}
+  }
+}

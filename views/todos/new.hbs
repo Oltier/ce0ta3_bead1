@@ -1,0 +1,57 @@
+
+<div class="page-header">
+    <h1>Új teendő felvétele</h1>
+</div>
+
+<form class="form-horizontal" method="post">
+    <fieldset>
+        <div class="form-group
+            {{#if validationErrors.dueDate}}
+                has-error
+            {{/if}}
+        ">
+            <label for="nickname" class="col-lg-2 control-label">Parancsnok</label>
+            <div class="col-lg-10">
+                <input class="form-control" id="nickname" name="nickname" type="text" value="{{#if loggedIn}}{{user.nickname}}{{/if}}" readonly>
+                {{#if validationErrors.assigner}}
+                    <span class="help-block">{{validationErrors.assigner.msg}}</span>
+                {{/if}}
+            </div>
+        </div>
+        
+        <div class="form-group
+            {{#if validationErrors.dueDate}}
+                has-error
+            {{/if}}
+        ">
+            <label for="dueDate" class="col-lg-2 control-label">Határidő</label>
+            <div class="col-lg-10">
+                <input class="form-control" id="dueDate" name="dueDate" placeholder="2015.10.25." type="text" value="{{data.dueDate}}">
+                {{#if validationErrors.dueDate}}
+                    <span class="help-block">{{validationErrors.dueDate.msg}}</span>
+                {{/if}}
+            </div>
+        </div>
+        <div class="form-group
+            {{#if validationErrors.leiras}}
+                has-error
+            {{/if}}
+        ">
+            <label for="leiras" class="col-lg-2 control-label">Leírás</label>
+            <div class="col-lg-10">
+                <textarea class="form-control" rows="3" id="leiras" name="leiras">{{data.leiras}}</textarea>
+                <span class="help-block">Meg kell adni a feladat pontos helyét és leírását.</span>
+                {{#if validationErrors.leiras}}
+                    <span class="help-block">{{validationErrors.leiras.msg}}</span>
+                {{/if}}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-10 col-lg-offset-2">
+                <a href="/todos/list" class="btn btn-default">Cancel</a>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+

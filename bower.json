@@ -1,0 +1,19 @@
+{
+  "name": "ce0ta3",
+  "version": "0.0.0",
+  "authors": [
+    "tudlikzoltan <tunyooo@inf.elte.hu>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "v3.3.5",
+    "bootswatch": "v3.3.5+4"
+  }
+}
