@@ -112,7 +112,7 @@ passport.use('local', new LocalStrategy({
     function(req, nickname, password, done) {
         req.app.models.member.findOne({ nickname: nickname }, function(err, member) {
             if(err) { return done(err); }
-            if(!member | !member.validPassword(password)) {
+            if(!member || !member.validPassword(password)) {
                 return done(null, false, { message: 'Helytelen adatok.' });
             }
             return done(null, member);
