@@ -7,9 +7,9 @@ var memberCollection = require('./member');
 var todoCollection = require('./todo');
 
 var Member;
+var orm = new Waterline();
 
 before(function (done) {
-    var orm = new Waterline();
     
     orm.loadCollection(Waterline.Collection.extend(memberCollection));
     orm.loadCollection(Waterline.Collection.extend(todoCollection));
@@ -23,13 +23,17 @@ before(function (done) {
 });
 
 describe('MemberModel', function() {
+    function createUser(memberData){
+        return Member.create(memberData);
+    }
+    
     function getMemberData() {
         return {
             nickname: 'myNickName',
             password: 'password',
-            surname: 'Gipsz',
-            forename: 'Jakab',
-            role: 'child',
+            familyName: 'Gipsz',
+            givenName: 'Jakab',
+            displayName: 'Jakab Gipsz (myNickName)',
         };
     }
     
@@ -42,32 +46,52 @@ describe('MemberModel', function() {
     });
     
     it('should be able to create a new user', function() {
+        var nickname= 'myNickName';
+        var password= 'password';
+        var familyName= 'Gipsz';
+        var givenName= 'Jakab';
+        var displayName = givenName+" "+familyName+" ("+nickname+")";
+        
         return Member.create({
-            nickname: 'myNickName',
-            password: 'password',
-            surname: 'Gipsz',
-            forename: 'Jakab',
-            role: 'child',
+            nickname: nickname,
+            password: password,
+            familyName: familyName,
+            givenName: givenName,
+            displayName: displayName,
         })
         .then(function(user) {
             expect(user.nickname).to.be.equal('myNickName');
             expect(bcrypt.compareSync('password', user.password)).to.be.true;
-            expect(user.surname).to.be.equal('Gipsz');
-            expect(user.forename).to.be.equal('Jakab');
+            expect(user.familyName).to.be.equal('Gipsz');
+            expect(user.givenName).to.be.equal('Jakab');
             expect(user.role).to.be.equal('child');
+            expect(user.displayName).to.be.equal('Jakab Gipsz (myNickName)');
         });
     });
     
+    [
+        {name: 'nickname', value: ''},
+        {name: 'familyName', value: ''},
+        {name: 'givenName', value: ''},
+        {name: 'password', value: ''},
+    ].forEach(function (attr){
+        it('should throw error for invalid data: ' + attr.name, function() {
+            getMemberData()[attr.name] = attr.value;
+            expect(createUser(getMemberData())).to.throw;
+        })
+    })
+    
     it('should be able to find a user', function() {
-        return Member.create(getMemberData())
+        return createUser(getMemberData())
         .then(function(user) {
             return Member.findOneByNickname(user.nickname);
         })
         .then(function(user) {
             expect(user.nickname).to.be.equal('myNickName');
             expect(bcrypt.compareSync('password', user.password)).to.be.true;
-            expect(user.surname).to.be.equal('Gipsz');
-            expect(user.forename).to.be.equal('Jakab');
+            expect(user.familyName).to.be.equal('Gipsz');
+            expect(user.givenName).to.be.equal('Jakab');
+            expect(user.displayName).to.be.equal('Jakab Gipsz (myNickName)');
             expect(user.role).to.be.equal('child');
         });
     });

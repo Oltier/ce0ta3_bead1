@@ -13,6 +13,17 @@
         "createdAt": "2015-10-31T21:27:10.709Z",
         "updatedAt": "2015-10-31T21:31:06.440Z",
         "id": 7
+      },
+      {
+        "nickname": "user",
+        "password": "$2a$10$vB5cT7cLysamrVMdp41Am.lvCHzrPzmUeKatOPW81ES/E6Q4llIRi",
+        "familyName": "user",
+        "givenName": "user",
+        "displayName": "user user (user)",
+        "role": "child",
+        "createdAt": "2015-10-31T22:33:27.818Z",
+        "updatedAt": "2015-10-31T22:33:27.818Z",
+        "id": 8
       }
     ]
   },
@@ -120,10 +131,10 @@
   },
   "counters": {
     "todo": {
-      "id": 14
+      "id": 15
     },
     "member": {
-      "id": 7
+      "id": 8
     },
     "member_todos__todo_assigner": {}
   }
