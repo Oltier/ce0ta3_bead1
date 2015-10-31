@@ -72,7 +72,8 @@ passport.deserializeUser(function(obj, done) {
 passport.use('google', new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://ce0ta3-bead1-oltier.c9.io/login/return"
+    callbackURL: "http://bead1-ce0ta3.herokuapp.com/login/return"
+    
     },
     function(acccessToken, refreshToken, profile, done) {
         //console.log(profile);
