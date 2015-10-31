@@ -44,6 +44,7 @@ router.get('/new', function(req, res) {
 
 //Hiba felvétele post
 router.post('/new', function(req, res) {
+    
     //Sanitizes the specified parameter (using 'dot-notation' or array), the parameter will be updated to the sanitized result. Cannot be chained, and will return the result.
     req.sanitizeBody('leiras').escape();
     
@@ -56,7 +57,7 @@ router.post('/new', function(req, res) {
     //express-validatorból
     //Return an array of errors
     var validationErrors = req.validationErrors(true);
-    console.log(validationErrors);
+    //console.log(validationErrors);
     
     if(validationErrors) {
         //Ha validációs hibák vannak, akkor 
@@ -100,6 +101,53 @@ router.get('/todos/delete/:id', function(req,res) {
                 }
             });
         });
+});
+
+router.get('/todos/edit/:id', function(req, res) {
+    var id = req.params.id;
+    var validationErrors = (req.flash('validationErrors') || [{}]).pop();
+    var data = (req.flash('data') || [{}]).pop();
+    
+    req.app.models.todo.findOne({id: id})
+        .then(function(todo){
+            res.render('todos/new', {
+                todo: todo,
+                edit: true,
+                validationErrors: validationErrors,
+                data: data,
+            });
+        });
+});
+
+router.post('/todos/edit/:id', function(req, res) {
+    var id = req.params.id;
+    //console.log(id);
+    
+    req.sanitizeBody('leiras').escape();
+     req.checkBody('leiras', 'Hibás leírás').notEmpty().withMessage('Kötelező megadni');
+    req.checkBody('dueDate', 'Hibás dátum').notEmpty().withMessage('Kötelező megadni');
+    var validationErrors = req.validationErrors(true);
+    
+    if(validationErrors) {
+        req.flash('validationErrors', validationErrors);
+        req.flash('data', req.body);
+        res.redirect('/todos/edit/:id');
+    } else {
+        req.app.models.todo.update({id: id}, {
+            status: req.body.status,
+            description: req.body.leiras,
+            dueDate: req.body.dueDate,
+            assigner: req.session.passport.user,
+            assignerNickname: req.session.passport.user.nickname,
+        })
+        .then(function(todo) {
+            req.flash('info', 'Teendő sikeresen módosítva!');
+            res.redirect('/todos/list');
+        })
+        .catch(function(err) {
+            console.log(err);
+        });
+    }
 });
 
 module.exports = router;

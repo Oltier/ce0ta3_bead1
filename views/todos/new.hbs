@@ -1,6 +1,10 @@
 
 <div class="page-header">
-    <h1>Új teendő felvétele</h1>
+    {{#if edit}}
+        <h1>Teendő szerkesztése</h1>
+    {{else}}
+        <h1>Új teendő felvétele</h1>
+    {{/if}}
 </div>
 
 <form class="form-horizontal" method="post">
@@ -26,7 +30,11 @@
         ">
             <label for="dueDate" class="col-lg-2 control-label">Határidő</label>
             <div class="col-lg-10">
-                <input class="form-control" id="dueDate" name="dueDate" placeholder="2015.10.25." type="text" value="{{data.dueDate}}">
+                {{#if edit}}
+                    <input class="form-control" id="dueDate" name="dueDate" placeholder="2015.10.25." type="text" value="{{todo.dueDate}}">
+                {{else}}
+                    <input class="form-control" id="dueDate" name="dueDate" placeholder="2015.10.25." type="text" value="{{data.dueDate}}">
+                {{/if}}
                 {{#if validationErrors.dueDate}}
                     <span class="help-block">{{validationErrors.dueDate.msg}}</span>
                 {{/if}}
@@ -39,13 +47,29 @@
         ">
             <label for="leiras" class="col-lg-2 control-label">Leírás</label>
             <div class="col-lg-10">
-                <textarea class="form-control" rows="3" id="leiras" name="leiras">{{data.leiras}}</textarea>
+                {{#if edit}}
+                    <textarea class="form-control" rows="3" id="leiras" name="leiras">{{todo.description}}</textarea>
+                {{else}}
+                    <textarea class="form-control" rows="3" id="leiras" name="leiras">{{data.leiras}}</textarea>
+                {{/if}}
                 <span class="help-block">Meg kell adni a feladat pontos helyét és leírását.</span>
                 {{#if validationErrors.leiras}}
                     <span class="help-block">{{validationErrors.leiras.msg}}</span>
                 {{/if}}
             </div>
         </div>
+        
+        {{#if edit}}
+            <div class="form-group">
+                <label for="status" class="col-lg-2 control-label">Státusz</label>
+                <div class="col-lg-10">
+                    <label class="radio-inline"><input type="radio" name="status" id="status" value="pending" checked>Új</label>
+                    <label class="radio-inline"><input type="radio" name="status" id="status" value="done">Kész</label>
+                    <label class="radio-inline"><input type="radio" name="status" id="status" value="overdue">Elmaradt</label>
+                </div>
+            </div>
+        {{/if}}
+        
         <div class="form-group">
             <div class="col-lg-10 col-lg-offset-2">
                 <a href="/todos/list" class="btn btn-default">Cancel</a>

@@ -2,14 +2,14 @@
   "data": {
     "todo": [
       {
-        "status": "pending",
-        "description": "Kitakarítani a konyhát!",
+        "status": "done",
+        "description": "Kitakarítani a konyhát AZONNAL!",
         "dueDate": "2015.10.26.",
         "assigner": 1,
         "assignerNickname": "tunyooo",
         "date": "2015-10-31T13:51:06.036Z",
         "createdAt": "2015-10-31T13:51:06.038Z",
-        "updatedAt": "2015-10-31T13:51:06.038Z",
+        "updatedAt": "2015-10-31T19:36:56.878Z",
         "id": 5
       },
       {
@@ -32,7 +32,7 @@
         "password": "$2a$10$M8BgQsmMo9T9Bc2jdA6Vve5ctb4Up6TGV.rhfB7/NHca/dGwxr93y",
         "role": "child",
         "createdAt": "2015-10-27T18:09:29.843Z",
-        "updatedAt": "2015-10-27T18:09:29.843Z",
+        "updatedAt": "2015-10-31T19:36:56.869Z",
         "id": 1
       },
       {
@@ -149,7 +149,7 @@
   },
   "counters": {
     "todo": {
-      "id": 8
+      "id": 11
     },
     "member": {
       "id": 2
