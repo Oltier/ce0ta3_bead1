@@ -74,7 +74,7 @@ router.post('/new', function(req, res) {
             description: req.body.leiras,
             dueDate: req.body.dueDate,
             assigner: req.session.passport.user,
-            assignerNickname: req.session.passport.user.nickname,
+            assignerNickname: req.session.passport.user.displayName,
         })
         .then(function (todo) {
             //sikerült a mentés
