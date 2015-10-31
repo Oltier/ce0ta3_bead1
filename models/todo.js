@@ -26,8 +26,11 @@ module.exports = {
         },
         
         assigner: {
+            model: 'member',
+        },
+        
+        assignerNickname: {
             type: 'string',
-            required: false,
         },
     }
 }

@@ -1,7 +1,51 @@
 {
   "data": {
-    "todo": [],
-    "member": [],
+    "todo": [
+      {
+        "status": "pending",
+        "description": "Kitakarítani a konyhát!",
+        "dueDate": "2015.10.26.",
+        "assigner": 1,
+        "assignerNickname": "tunyooo",
+        "date": "2015-10-31T13:51:06.036Z",
+        "createdAt": "2015-10-31T13:51:06.038Z",
+        "updatedAt": "2015-10-31T13:51:06.038Z",
+        "id": 5
+      },
+      {
+        "status": "pending",
+        "description": "Szobatakarítás!",
+        "dueDate": "2015.10.26.",
+        "assigner": 1,
+        "assignerNickname": "tunyooo",
+        "date": "2015-10-31T17:35:25.724Z",
+        "createdAt": "2015-10-31T17:35:25.726Z",
+        "updatedAt": "2015-10-31T17:35:25.726Z",
+        "id": 7
+      }
+    ],
+    "member": [
+      {
+        "nickname": "tunyooo",
+        "surname": "Tudlik",
+        "forename": "Zoltán",
+        "password": "$2a$10$M8BgQsmMo9T9Bc2jdA6Vve5ctb4Up6TGV.rhfB7/NHca/dGwxr93y",
+        "role": "child",
+        "createdAt": "2015-10-27T18:09:29.843Z",
+        "updatedAt": "2015-10-27T18:09:29.843Z",
+        "id": 1
+      },
+      {
+        "nickname": "ce0ta3",
+        "surname": "Tudlik",
+        "forename": "Zoltán",
+        "password": "$2a$10$EQKtczNiVEe6J5Z5b148..o4Ebn9abveq0.GT3PudMjrZB.gucfum",
+        "role": "child",
+        "createdAt": "2015-10-31T13:51:53.451Z",
+        "updatedAt": "2015-10-31T13:51:53.451Z",
+        "id": 2
+      }
+    ],
     "member_todos__todo_assigner": []
   },
   "schema": {
@@ -24,6 +68,12 @@
         "type": "string"
       },
       "assigner": {
+        "type": "integer",
+        "model": "member",
+        "foreignKey": true,
+        "alias": "assigner"
+      },
+      "assignerNickname": {
         "type": "string"
       },
       "id": {
@@ -98,8 +148,12 @@
     }
   },
   "counters": {
-    "todo": {},
-    "member": {},
+    "todo": {
+      "id": 8
+    },
+    "member": {
+      "id": 2
+    },
     "member_todos__todo_assigner": {}
   }
 }

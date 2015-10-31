@@ -23,7 +23,7 @@ var config = {
         },
         postgresql: {
             adapter: 'postgresql',
-            database: 'tickets',
+            database: 'todos',
             host: 'localhost',
             user: 'ubuntu',
             password: 'ubuntu',

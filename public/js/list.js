@@ -1,9 +1,9 @@
 //Maga a lista
 $(function () {
-    console.log('list.js');
+    //console.log('list.js');
     
     var $todoTable = $('#todoTable').hide();
-    console.log($todoTable);
+    //console.log($todoTable);
     
     var statusClasses = {
         'pending': 'info',
@@ -18,7 +18,7 @@ $(function () {
         var $trs = $todoTable.find('tbody tr .label-'+statusClasses[type]).closest('tr');
         rows[type] = $trs;
     });
-    console.log(rows);
+    //console.log(rows);
     
     var $ul = $('<ul class="nav nav-tabs" role="tablist"></ul>');
     types.forEach(function(type) {

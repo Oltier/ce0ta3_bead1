@@ -1,5 +1,6 @@
 {{#extend "scripts"}}
 <script src="/js/list.js"></script>
+<script src="/js/list_delete.js"></script>
 {{/extend}}
 
 {{#each messages}}
@@ -31,7 +32,11 @@
             <td><span class="label label-{{statusClass}}">{{statusText}}</span></td>
             <td>{{description}}</td>
             <td>{{dueDate}}</td>
-            <td>{{assigner}}</td>
+            <td>{{assignerNickname}}</td>
+            <td>
+                <a class="btn btn-default btn-sm" href="/todos/edit/{{id}}" role="button">Szerkeszt</a>
+                <a class="btn btn-danger btn-sm" href="todos/delete/{{id}}" role="button">Törlés</a>
+            </td>
         </tr>
         {{/each}}
     </tbody>

@@ -13,8 +13,12 @@ router.get('/list', function(req, res) {
     //.find(): returns a value in the array, if an element in the array satisfies the provided testing function.
     //.then: The then() method returns a Promise. It takes two arguments, both are callback functions for the success and failure cases of the Promise.
     //Itt csak success van
+    req.app.models.member.find().then(function(members) {
+        //console.log(members);
+    });
     req.app.models.todo.find().then(function(todos) {
         //Success esetén rendereljük a todos/list viewt (kiírjuk a todokat).
+        //console.log(todos);
         res.render('todos/list', {
             //Dekoráljuk a todokat
             todos: decorateTodos(todos),
@@ -29,6 +33,8 @@ router.get('/new', function(req, res) {
     //Ha van validálási hibaüzenet (pl.: nincs bejelentkezve a user), akkor a validationErrors értéke abból jön. Ha nincs, akkor egy üres objektumból.
     var validationErrors = (req.flash('validationErrors') || [{}]).pop();
     var data = (req.flash('data') || [{}]).pop();
+    
+    //console.log(req.session.passport.user);
     
     res.render('todos/new', {
         validationErrors: validationErrors,
@@ -61,13 +67,13 @@ router.post('/new', function(req, res) {
         //Visszairányítunk az errors/new oldalra
         res.redirect('/todos/new');
     } else {
-        
         req.app.models.todo.create({
             //Ezekkel az adatokkal hozzuk létre az új teendőt
             status: 'pending',
             description: req.body.leiras,
             dueDate: req.body.dueDate,
-            assigner: req.body.nickname,
+            assigner: req.session.passport.user,
+            assignerNickname: req.session.passport.user.nickname,
         })
         .then(function (todo) {
             //sikerült a mentés
@@ -79,6 +85,21 @@ router.post('/new', function(req, res) {
             console.log(err);
         });
     }
+});
+
+router.get('/todos/delete/:id', function(req,res) {
+    var id = req.params.id;
+    req.app.models.todo.destroy({id: id})
+        .then(function(deletedErrors) {
+            res.format({
+                'text.html' : function() {
+                    res.redirect('/todos/list');
+                },
+                'application/json': function() {
+                    res.json({success: true});
+                }
+            });
+        });
 });
 
 module.exports = router;
