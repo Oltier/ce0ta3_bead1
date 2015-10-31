@@ -16,7 +16,7 @@
         ">
             <label for="nickname" class="col-lg-2 control-label">Parancsnok</label>
             <div class="col-lg-10">
-                <input class="form-control" id="nickname" name="nickname" type="text" value="{{#if loggedIn}}{{user.nickname}}{{/if}}" readonly>
+                <input class="form-control" id="nickname" name="nickname" type="text" value="{{#if loggedIn}}{{user.displayName}}{{/if}}" readonly>
                 {{#if validationErrors.assigner}}
                     <span class="help-block">{{validationErrors.assigner.msg}}</span>
                 {{/if}}
@@ -72,8 +72,8 @@
         
         <div class="form-group">
             <div class="col-lg-10 col-lg-offset-2">
-                <a href="/todos/list" class="btn btn-default">Cancel</a>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <a href="/todos/list" class="btn btn-default">Mégse</a>
+                <button type="submit" class="btn btn-primary">Mentés</button>
             </div>
         </div>
     </fieldset>

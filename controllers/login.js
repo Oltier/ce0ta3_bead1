@@ -6,6 +6,7 @@ var router = express.Router();
 
 //Megjelenítjuk a login/index.hbs-t ha hiba történt, akkor 
 router.get('/', function(req, res) {
+    
     res.render('login/index', {
         //connect-flash: hibaüzenetek megjelenítésére
         //https://github.com/jaredhanson/connect-flash
@@ -27,16 +28,26 @@ router.post('/', passport.authenticate('local', {
 
 //Regisztrációs oldal
 router.get('/signup', function(req, res) {
+    
     res.render('login/signup', {
         errorMessages: req.flash('error')
     });
 });
 
 router.post('/signup', passport.authenticate('local-signup', {
-    successRedirect: '/login',
+    successRedirect: '/todos/list',
     failureRedirect: '/login/signup',
     failureFlash: true,
     badRequestMessage: 'Hiányzó adatok'
+}));
+
+router.get('/google', passport.authenticate('google', {
+    scope: 'https://www.googleapis.com/auth/plus.login'
+}));
+
+router.get('/return', passport.authenticate('google', {
+    successRedirect: '/todos/list',
+    failureRedirect: '/login',
 }));
 
 module.exports = router;

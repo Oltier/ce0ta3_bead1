@@ -1,54 +1,44 @@
 {
   "data": {
-    "todo": [
-      {
-        "status": "done",
-        "description": "Kitakarítani a konyhát AZONNAL!",
-        "dueDate": "2015.10.26.",
-        "assigner": 1,
-        "assignerNickname": "tunyooo",
-        "date": "2015-10-31T13:51:06.036Z",
-        "createdAt": "2015-10-31T13:51:06.038Z",
-        "updatedAt": "2015-10-31T19:36:56.878Z",
-        "id": 5
-      },
-      {
-        "status": "pending",
-        "description": "Szobatakarítás!",
-        "dueDate": "2015.10.26.",
-        "assigner": 1,
-        "assignerNickname": "tunyooo",
-        "date": "2015-10-31T17:35:25.724Z",
-        "createdAt": "2015-10-31T17:35:25.726Z",
-        "updatedAt": "2015-10-31T17:35:25.726Z",
-        "id": 7
-      }
-    ],
+    "member_todos__todo_assigner": [],
+    "todo": [],
     "member": [
       {
         "nickname": "tunyooo",
-        "surname": "Tudlik",
-        "forename": "Zoltán",
-        "password": "$2a$10$M8BgQsmMo9T9Bc2jdA6Vve5ctb4Up6TGV.rhfB7/NHca/dGwxr93y",
+        "password": "$2a$10$svSlYSQwSfRMslZqxhWruOLOHNWe1j18UTkxM7u25R/i1Ze969Jzi",
+        "familyName": "Tudlik",
+        "givenName": "Zoltán",
+        "displayName": "Zoltán Tudlik (tunyooo)",
         "role": "child",
-        "createdAt": "2015-10-27T18:09:29.843Z",
-        "updatedAt": "2015-10-31T19:36:56.869Z",
-        "id": 1
-      },
-      {
-        "nickname": "ce0ta3",
-        "surname": "Tudlik",
-        "forename": "Zoltán",
-        "password": "$2a$10$EQKtczNiVEe6J5Z5b148..o4Ebn9abveq0.GT3PudMjrZB.gucfum",
-        "role": "child",
-        "createdAt": "2015-10-31T13:51:53.451Z",
-        "updatedAt": "2015-10-31T13:51:53.451Z",
-        "id": 2
+        "createdAt": "2015-10-31T21:27:10.709Z",
+        "updatedAt": "2015-10-31T21:31:06.440Z",
+        "id": 7
       }
-    ],
-    "member_todos__todo_assigner": []
+    ]
   },
   "schema": {
+    "member_todos__todo_assigner": {
+      "id": {
+        "primaryKey": true,
+        "unique": true,
+        "autoIncrement": true,
+        "type": "integer"
+      },
+      "member_todos": {
+        "type": "integer",
+        "foreignKey": true,
+        "references": "member",
+        "on": "id",
+        "via": "todo_assigner"
+      },
+      "todo_assigner": {
+        "type": "integer",
+        "foreignKey": true,
+        "references": "todo",
+        "on": "id",
+        "via": "member_todos"
+      }
+    },
     "todo": {
       "date": {
         "type": "datetime"
@@ -97,10 +87,13 @@
       "password": {
         "type": "string"
       },
-      "surname": {
+      "familyName": {
         "type": "string"
       },
-      "forename": {
+      "givenName": {
+        "type": "string"
+      },
+      "displayName": {
         "type": "string"
       },
       "role": {
@@ -123,36 +116,14 @@
       "updatedAt": {
         "type": "datetime"
       }
-    },
-    "member_todos__todo_assigner": {
-      "id": {
-        "primaryKey": true,
-        "unique": true,
-        "autoIncrement": true,
-        "type": "integer"
-      },
-      "member_todos": {
-        "type": "integer",
-        "foreignKey": true,
-        "references": "member",
-        "on": "id",
-        "via": "todo_assigner"
-      },
-      "todo_assigner": {
-        "type": "integer",
-        "foreignKey": true,
-        "references": "todo",
-        "on": "id",
-        "via": "member_todos"
-      }
     }
   },
   "counters": {
     "todo": {
-      "id": 11
+      "id": 14
     },
     "member": {
-      "id": 2
+      "id": 7
     },
     "member_todos__todo_assigner": {}
   }

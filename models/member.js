@@ -14,13 +14,16 @@ module.exports = {
             type: 'string',
             required: true,
         },
-        surname: {
+        familyName: {
             type: 'string',
             required: true,
         },
-        forename: {
+        givenName: {
             type: 'string',
             required: true,
+        },
+        displayName: {
+            type: 'string',
         },
         role: {
             type: 'string',

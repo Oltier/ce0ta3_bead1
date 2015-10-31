@@ -54,6 +54,10 @@ var passport = require('passport');
 //This module lets you authenticate using a membername and password in your Node.js applications. By plugging into Passport, local authentication can be easily and unobtrusively integrated into any application or framework that supports Connect-style middleware, including Express.
 //Stratégia konfigurálása
 var LocalStrategy = require('passport-local').Strategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+
+var GOOGLE_CLIENT_ID ="570176182022-fapiri22d6dduv88s102lm01onp7sqv1.apps.googleusercontent.com";
+var GOOGLE_CLIENT_SECRET = "xGj5WnTq4yZ6lKHnoQXaTO_-";
 
 //New session: serialize the userr and send it to the user as a cookie in the user's browser
 //Each subsequent request will not contain credentials, but rather the unique cookie that identifies the session. In order to support login sessions, Passport will serialize and deserialize user instances to and from the session.
@@ -63,6 +67,18 @@ passport.serializeUser(function(member, done){
 passport.deserializeUser(function(obj, done) {
     done(null, obj);
 });
+
+//Google stratégia bejelentkezéshez
+passport.use('google', new GoogleStrategy({
+    clientID: GOOGLE_CLIENT_ID,
+    clientSecret: GOOGLE_CLIENT_SECRET,
+    callbackURL: "https://ce0ta3-bead1-oltier.c9.io/login/return"
+    },
+    function(acccessToken, refreshToken, profile, done) {
+        //console.log(profile);
+        return done(null, profile);
+    }
+));
 
 //Stratégia a regisztráláshoz
 passport.use('local-signup', new LocalStrategy({
@@ -78,9 +94,16 @@ passport.use('local-signup', new LocalStrategy({
             if(member) {
                 return done(null, false, { message: 'Létező becenév.'});
             }
+            var displayName = req.body.givenName+" "+req.body.familyName+" ("+req.body.nickname+")";
             //ES6
             //Object.create() method creates a new object with the specified prototype object and properties.
-            req.app.models.member.create(req.body)
+            req.app.models.member.create({
+                nickname: req.body.nickname,
+                password: req.body.password,
+                familyName: req.body.familyName,
+                givenName: req.body.givenName,
+                displayName: displayName,
+            })
             //Prototype.then() ha sikerült, akkor ez történik
             .then(member => done(null, member))
             //Ha nem sikerül, (kivételkezelés) akkor hibaüzenetek. 
@@ -115,6 +138,7 @@ passport.use('local', new LocalStrategy({
             if(!member || !member.validPassword(password)) {
                 return done(null, false, { message: 'Helytelen adatok.' });
             }
+            //console.log(member);
             return done(null, member);
         });
     }
@@ -219,6 +243,7 @@ orm.initialize(waterlineConfig, function(err, models) {
     
     if(err) throw err;
     
+
     
     app.models = models.collections;
     app.connections = models.connections;
