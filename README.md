@@ -25,7 +25,11 @@
 + Gyerek: Látja a teendőket, tud törölni és szerkeszteni.
 + Felnőtt: Megegyezik a gyerekével. Fejlesztési lehetőség: csak a felnőttek tudjanak szerkeszteni és törölni.
 
+**Használati eset diagram**
+
 ![Használati eset diagram](docs/images/use-case.png)
+
+**Új feladat felvitele folyamat diagram**
 
 ![Új feladat felvitele folyamat diagram](docs/images/uj-feladat-hozzaadasa.png)
 
@@ -79,9 +83,15 @@ Felhasználó:
 
 ### Designtervek
 
+**Feladatok listaoldal design számítógépen**
+
 ![Feladatok listaoldal design számítógépen](docs/images/Desktop.PNG)
 
+**Új feladat design számítógépen**
+
 ![Új feladat design számítógépen](docs/images/desktop_új_feladat.PNG)
+
+**Bejelentkezés okostelefonon (LG G3)**
 
 ![Bejelentkezés okostelefonon (LG G3)](docs/images/phone.jpg)
 
