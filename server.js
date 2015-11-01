@@ -201,7 +201,7 @@ app.use(session({
     //Session ID cookie settings: 
     //maxAge by default is null and will be destroyed, when user closes the browser
     //maxAge 60000 := 60000 ms-ig él
-    cookie: { maxAge: 60000 },
+    cookie: { maxAge: null },
     //This is the secret used to sign the session ID cookie. This can be either a string for a single secret, or an array of multiple secrets. If an array of secrets is provided, only the first element will be used to sign the session ID cookie, while all the elements will be considered when verifying the signature in requests.
     secret: 'dancing kitten',
     //Set it to false if the store implements touch method.
